@@ -1,4 +1,17 @@
+# Compilación y archivos temporales
+/bin/
+/out/
+/target/
+.gradle/
+build/
+
+# Entorno de desarrollo (IDE)
+.vscode/
 .idea/
-out/
-*.class
+*.iml
+*.classpath
+*.project
+
+# Archivos de datos locales
 *.dat
+*.log
