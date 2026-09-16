@@ -19,7 +19,16 @@ public class ViajeController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Viaje>> obtenerTodos() {
+    public ResponseEntity<List<Viaje>> obtenerTodos(
+            @RequestParam(required = false) Viaje.Estado estado,
+            @RequestParam(required = false) Long destinoId) {
+        
+        if (estado != null) {
+            return ResponseEntity.ok(agenciaService.obtenerViajesPorEstado(estado));
+        }
+        if (destinoId != null) {
+            return ResponseEntity.ok(agenciaService.obtenerViajesPorDestino(destinoId));
+        }
         return ResponseEntity.ok(agenciaService.obtenerTodosLosViajes());
     }
 
@@ -55,7 +64,6 @@ public class ViajeController {
             return ResponseEntity.notFound().build();
         }
 
-        // Si el viaje está PENDIENTE, se inicia primero para poder avanzar kilómetros
         if (viaje.estaPendiente()) {
             viaje.iniciar();
         }

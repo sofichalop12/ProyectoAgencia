@@ -79,4 +79,12 @@ public class AgenciaService {
     public Viaje buscarViaje(Long id) {
         return viajeRepository.findById(id).orElse(null);
     }
+
+    public List<Viaje> obtenerViajesPorEstado(Viaje.Estado estado) {
+        return viajeRepository.findByEstadoActual(estado);
+    }
+
+    public List<Viaje> obtenerViajesPorDestino(Long idDestino) {
+        return viajeRepository.findByDestinoDelViajeId(idDestino);
+    }
 }
