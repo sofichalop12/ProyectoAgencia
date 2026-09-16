@@ -59,3 +59,16 @@ Este documento mantiene la memoria técnica y el historial de evolución del sis
 #### Nuevas Características
 - **SpringDoc OpenAPI 3**: Integración de interfaz Swagger UI para exploración y prueba interactiva de la API REST.
 - **Ruta de Acceso**: `/swagger-ui.html` para la consola gráfica y `/v3/api-docs` para las especificaciones en formato JSON.
+
+### Configuración Global de CORS
+#### Nuevas Características
+- **CorsConfig (`WebMvcConfigurer`)**: Habilitación de peticiones cross-origin (`/api/**`) para permitir la integración transparente con clientes y frameworks de frontend (React, Angular, Vue, etc.).
+- **Métodos Permitidos**: Habilitados métodos HTTP estándar (`GET`, `POST`, `PUT`, `DELETE`, `OPTIONS`).
+
+### Endpoints CRUD y Lógica de Avance para Viajes
+#### Nuevas Características
+- **Operaciones Extendidas en `ViajeController`**:
+  - `GET /api/viajes/{id}`: Búsqueda individual de un viaje por ID.
+  - `POST /api/viajes`: Creación y persistencia de viajes.
+  - `PUT /api/viajes/{id}/avanzar?km=X`: Modificación dinámica del progreso de un viaje recalculando kilómetros restantes.
+  - `DELETE /api/viajes/{id}`: Eliminación física del recurso en base de datos.
