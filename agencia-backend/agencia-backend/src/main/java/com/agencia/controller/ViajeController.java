@@ -25,7 +25,12 @@ public class ViajeController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Viaje> obtenerPorId(@PathVariable Long id) {
-        Viaje viaje = agenciaService.buscarViajePorId(id);
+        Viaje viaje = agenciaService.obtenerTodosLosViajes()
+                .stream()
+                .filter(v -> v.getIdViaje().equals(id))
+                .findFirst()
+                .orElse(null);
+
         if (viaje == null) {
             return ResponseEntity.notFound().build();
         }
@@ -40,21 +45,28 @@ public class ViajeController {
 
     @PutMapping("/{id}/avanzar")
     public ResponseEntity<Viaje> registrarAvance(@PathVariable Long id, @RequestParam float km) {
-        Viaje viaje = agenciaService.buscarViajePorId(id);
+        Viaje viaje = agenciaService.obtenerTodosLosViajes()
+                .stream()
+                .filter(v -> v.getIdViaje().equals(id))
+                .findFirst()
+                .orElse(null);
+
         if (viaje == null) {
             return ResponseEntity.notFound().build();
         }
-        viaje.AvanzarViaje(km);
+
+        // Si el viaje está PENDIENTE, se inicia primero para poder avanzar kilómetros
+        if (viaje.estaPendiente()) {
+            viaje.iniciar();
+        }
+
+        viaje.avanzarKm(km);
         agenciaService.guardarViaje(viaje);
         return ResponseEntity.ok(viaje);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarViaje(@PathVariable Long id) {
-        Viaje viaje = agenciaService.buscarViajePorId(id);
-        if (viaje == null) {
-            return ResponseEntity.notFound().build();
-        }
         agenciaService.eliminarViaje(id);
         return ResponseEntity.noContent().build();
     }

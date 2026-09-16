@@ -25,9 +25,9 @@ public class AgenciaService {
 
     @Autowired
     public AgenciaService(DestinoRepository destinoRepository,
-                          ResponsableABordoRepository responsableRepository,
-                          TransporteRepository transporteRepository,
-                          ViajeRepository viajeRepository) {
+            ResponsableABordoRepository responsableRepository,
+            TransporteRepository transporteRepository,
+            ViajeRepository viajeRepository) {
         this.destinoRepository = destinoRepository;
         this.responsableRepository = responsableRepository;
         this.transporteRepository = transporteRepository;
@@ -74,5 +74,9 @@ public class AgenciaService {
             viaje.getTransporteAsignado().agregarViaje(viaje);
         }
         return viajeRepository.save(viaje);
+    }
+
+    public Viaje buscarViaje(Long id) {
+        return viajeRepository.findById(id).orElse(null);
     }
 }

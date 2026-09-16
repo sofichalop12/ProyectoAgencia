@@ -4,71 +4,50 @@ Este documento mantiene la memoria técnica y el historial de evolución del sis
 
 ---
 
-## Arquitectura Actual del Sistema
+## 🏛️ Arquitectura Actual del Sistema
 
-- **Framework Principal**: Spring Boot 3.x (Java 17/21)
+- **Framework Principal**: Spring Boot 3.2.5 (Java 17)
+- **Clase Principal**: `com.agencia.AgenciaBackendApplication`
 - **Base de Datos**: H2 In-Memory Database (SQL Relacional)
-- **OR/M y Persistencia**: Jakarta Persistence API (JPA) + Hibernate ORM
+- **OR/M y Persistencia**: Jakarta Persistence API (JPA) + Hibernate ORM (`InheritanceType.JOINED`)
 - **Capa de Datos**: Spring Data JPA Repositories
-- **Serialización**: Jackson (con `@JsonIgnore` / `@JsonIgnoreProperties` para prevenir recursión circular)
+- **Serialización**: Jackson (con `@JsonIgnore` / `@JsonIgnoreProperties` para evitar recursión circular)
+- **Documentación de API**: SpringDoc OpenAPI 3 / Swagger UI (`/swagger-ui.html`)
+- **Manejo de Errores**: ControllerAdvice centralizado (`GlobalExceptionHandler`)
+- **Configuración Web**: Soporte CORS habilitado (`CorsConfig`)
 
 ---
 
-## Historial de Versiones y Cambios
+## 📅 Historial de Versiones y Cambios
+
+### [v1.5.0] - 2026-09-16 | Corrección de firmas, Main Class y Registro de Avance
+#### ✨ Nuevas Características y Correcciones
+- **Validación de Avance en Viajes**: Endpoint `PUT /api/viajes/{id}/avanzar?km=X` probado y funcional. Activa el viaje a `EN_CURSO` si está `PENDIENTE` y recalcula kilómetros dinámicamente.
+- **Sincronización de Métodos**: Sincronización de las firmas del controlador (`ViajeController`) con las entidades de dominio (`Viaje.avanzarKm`) y servicios (`AgenciaService`).
+- **Ajuste de Empaquetado Maven**: Configuración explícita de `com.agencia.AgenciaBackendApplication` en el `spring-boot-maven-plugin` de `pom.xml`.
+
+---
+
+### [v1.4.0] - 2026-09-16 | Configuración Global de CORS
+#### ✨ Nuevas Características
+- **CorsConfig (`WebMvcConfigurer`)**: Habilitación de peticiones cross-origin (`/api/**`) para integración con frontends modernos (React, Angular, Vue, etc.).
+
+---
+
+### [v1.3.0] - 2026-09-16 | Documentación Interactiva y Manejo Global de Excepciones
+#### ✨ Nuevas Características
+- **SpringDoc OpenAPI 3 / Swagger UI**: Consola interactiva accesible en `http://localhost:8080/swagger-ui.html`.
+- **GlobalExceptionHandler (`@RestControllerAdvice`)**: Centralización de la gestión de excepciones (`DestinoYaExisteException`, `ValidacionException`).
+
+---
 
 ### [v1.1.0] - 2026-09-16 | API REST Completa y Carga Inicial
-#### Nuevas Características
-- **Controladores REST**: Se agregaron todos los endpoints CRUD/GET para los recursos del sistema:
-  - `DestinoController` (`/api/destinos`)
-  - `ViajeController` (`/api/viajes`)
-  - `TransporteController` (`/api/transportes`)
-  - `ResponsableController` (`/api/responsables`)
-- **Semilla de Datos (DataInitializer)**: Implementación de `CommandLineRunner` para cargar destinos, responsables, vehículos y viajes de prueba automáticamente en la base H2 al arrancar el servidor.
-
-#### Correcciones y Ajustes Técnicos
-- **Relaciones Bidireccionales**: Solucionado el error de bucle JSON infinito (*Infinite Recursion*) añadiendo `@JsonIgnore` en `Transporte.listaViajes` y `@JsonIgnoreProperties` en los atributos de `Viaje`.
-- **Mapeo JPA**: Corregido el atributo `mappedBy = "transporteAsignado"` en `Transporte.java` para coincidir con la declaración en `Viaje.java`.
-- **Normalización DTO/Entidad**: Estandarización de nombres de atributos (`nombre`, `cantKm`) en `Destino.java` para compatibilidad completa con deserialización JSON mediante Jackson.
-- **Constructores Overloaded**: Ajuste de sobrecarga de constructores en `CortaDistancia` y `LargaDistancia` para mantener compatibilidad con `Agencia.java` y soporte JPA.
+#### ✨ Nuevas Características
+- **Controladores REST**: Endpoints CRUD/GET para `Destino`, `Viaje`, `Transporte` y `Responsable`.
+- **DataInitializer**: Precarga automática de datos de prueba en la base H2.
 
 ---
 
 ### [v1.0.0] - Migración Inicial del Modelo de Dominio
-#### Características Iniciales
-- Creación del proyecto Spring Boot con Maven.
-- Mapeo de entidades JPA con herencia `InheritanceType.JOINED`:
-  - `Viaje` (Clase base abstracta) -> `CortaDistancia`, `LargaDistancia`
-  - `Transporte` (Clase base abstracta) -> `Auto`, `Combi`, `ColectivoSemiCama`, `ColectivoCocheCama`
-  - `Destino` y `ResponsableABordo`
-- Repositorios iniciales extendiendo `JpaRepository`.
-- Implementación de `AgenciaService` para la lógica de negocio centralizada.
-
----
-
-## Próximos Pasos Proyectados
-- [ ] Configuración CORS para acceso desde frontends web/móviles.
-- [ ] Documentación interactiva de la API mediante Swagger / OpenAPI.
-- [ ] Manejo global de excepciones mediante `@ControllerAdvice`.
-
-### 2026-09-16 | Manejo Global de Excepciones
-#### Nuevas Características
-- **GlobalExceptionHandler (`@RestControllerAdvice`)**: Captura centralizada de excepciones de negocio (`DestinoYaExisteException`, `ValidacionException`) y errores no controlados.
-- **Estructura de Errores Consistente**: Respuestas JSON estandarizadas con `timestamp`, `status`, `error` y `mensaje` claro para el cliente.
-
-### 2026-09-16 | Documentación Interactiva con Swagger / OpenAPI
-#### Nuevas Características
-- **SpringDoc OpenAPI 3**: Integración de interfaz Swagger UI para exploración y prueba interactiva de la API REST.
-- **Ruta de Acceso**: `/swagger-ui.html` para la consola gráfica y `/v3/api-docs` para las especificaciones en formato JSON.
-
-### Configuración Global de CORS
-#### Nuevas Características
-- **CorsConfig (`WebMvcConfigurer`)**: Habilitación de peticiones cross-origin (`/api/**`) para permitir la integración transparente con clientes y frameworks de frontend (React, Angular, Vue, etc.).
-- **Métodos Permitidos**: Habilitados métodos HTTP estándar (`GET`, `POST`, `PUT`, `DELETE`, `OPTIONS`).
-
-### Endpoints CRUD y Lógica de Avance para Viajes
-#### Nuevas Características
-- **Operaciones Extendidas en `ViajeController`**:
-  - `GET /api/viajes/{id}`: Búsqueda individual de un viaje por ID.
-  - `POST /api/viajes`: Creación y persistencia de viajes.
-  - `PUT /api/viajes/{id}/avanzar?km=X`: Modificación dinámica del progreso de un viaje recalculando kilómetros restantes.
-  - `DELETE /api/viajes/{id}`: Eliminación física del recurso en base de datos.
+#### ✨ Características Iniciales
+- Estructura base Spring Boot con Maven, mapeo JPA y repositorios Spring Data.
