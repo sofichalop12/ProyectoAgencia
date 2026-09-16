@@ -1,0 +1,106 @@
+{
+  "destinos": [
+    {
+      "Nombre": "Mar del Plata",
+      "CantKm": 400.5
+    },
+    {
+      "Nombre": "Rosario",
+      "CantKm": 300.0
+    },
+    {
+      "Nombre": "Bariloche",
+      "CantKm": 1550.8
+    },
+    {
+      "Nombre": "Mendoza",
+      "CantKm": 1050.0
+    },
+    {
+      "Nombre": "San Juan",
+      "CantKm": 640.9
+    },
+    {
+      "Nombre": "Tandil",
+      "CantKm": 250.6
+    },
+    {
+      "Nombre": "Cordoba",
+      "CantKm": 600.0
+    }
+  ],
+  "responsables": [
+    {
+      "nombre": "Ana Gomez",
+      "Dni": "27240600",
+      "SueldoXViaje": 50000.0,
+      "EstaDisp": true
+    },
+    {
+      "nombre": "Carlos Ruiz",
+      "Dni": "35351233",
+      "SueldoXViaje": 52000.0,
+      "EstaDisp": true
+    },
+    {
+      "nombre": "Julian Alvarez",
+      "Dni": "46310507",
+      "SueldoXViaje": 60000.0,
+      "EstaDisp": true
+    },
+    {
+      "nombre": "Valentina Lopez",
+      "Dni": "27417890",
+      "SueldoXViaje": 64000.0,
+      "EstaDisp": true
+    }
+  ],
+  "transportes": [
+    {
+      "tipo": "Auto",
+      "patente": "AA123BB",
+      "capacidadPasajeros": 4,
+      "velocidadPromedioXHora": 90.0,
+      "valorBasePorViaje": 10000.0,
+      "valorPorKmRecorrido": 150.0,
+      "listaViajes": []
+    },
+    {
+      "tipo": "Combi",
+      "patente": "AD456CC",
+      "capacidadPasajeros": 15,
+      "velocidadPromedioXHora": 80.0,
+      "valorBasePorViaje": 40000.0,
+      "valorPorPasajeroPorKmRecorrido": 20.0,
+      "listaViajes": []
+    },
+    {
+      "tipo": "ColectivoSemiCama",
+      "patente": "AE789DD",
+      "capacidadPasajeros": 40,
+      "velocidadPromedioXHora": 75.0,
+      "valorPorPasajeroPorKmRecorrido": 30.0,
+      "listaViajes": []
+    },
+    {
+      "tipo": "ColectivoCocheCama",
+      "patente": "AF111EG",
+      "capacidadPasajeros": 32,
+      "velocidadPromedioXHora": 75.0,
+      "cantSemiCama": 6,
+      "cantCama": 26,
+      "valorPorPasajeroPorKmRecorrido": 30.0,
+      "valorPlazaTipoCamaPorKmRecorrido": 50.0,
+      "listaViajes": []
+    },
+    {
+      "tipo": "Auto",
+      "patente": "AC999FF",
+      "capacidadPasajeros": 4,
+      "velocidadPromedioXHora": 110.0,
+      "valorBasePorViaje": 11000.0,
+      "valorPorKmRecorrido": 170.0,
+      "listaViajes": []
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+# Lote de datos iniciales para la Agencia
+# Formato: TIPO,campo1,campo2,campo3...
+
+# --- DESTINOS ---
+# Formato: DESTINO,Nombre,Kms
+DESTINO,Mar del Plata,80
+DESTINO,Cordoba,700
+DESTINO,Tandil,150
+DESTINO,Bariloche,1600
+
+# --- RESPONSABLES ---
+# Formato: RESPONSABLE,Nombre,Sueldo,DNI
+RESPONSABLE,Juan Perez,50000,12345678
+RESPONSABLE,Maria Lopez,50000,87654321
+
+# --- TRANSPORTES ---
+# Formato: TRANSPORTE,TIPO,Patente,Capacidad,Velocidad,...costos...
+
+# Auto: TRANSPORTE,AUTO,Patente,Cap(4),Vel,ValorBase,ValorKm
+TRANSPORTE,AUTO,ABC123AA,4,120,5000,100
+TRANSPORTE,AUTO,XYZ789ZZ,4,140,5500,110
+
+# Combi: TRANSPORTE,COMBI,Patente,Cap(16),Vel,ValorBase,ValorPasajeroKm
+TRANSPORTE,COMBI,DEF456BB,16,100,8000,50
+TRANSPORTE,COMBI,GHI789CC,16,110,8500,55
+
+# SemiCama: TRANSPORTE,SEMICAMA,Patente,Cap(40),Vel,ValorPasajeroKm
+TRANSPORTE,SEMICAMA,JKL123DD,40,90,70
+
+# CocheCama: TRANSPORTE,COCHECAMA,Patente,Cap(32),Vel,ValorPasajeroKm,ValorCamaKm
+TRANSPORTE,COCHECAMA,MNO456EE,32,90,100,40
